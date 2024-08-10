@@ -3,11 +3,13 @@ package com.example.class236;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
@@ -36,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         btn_new_activity = findViewById(R.id.btn_new_activity);
         tvOpenCount = findViewById(R.id.tvOpenCount);
 
+//-------------------------------------------------
+//-------------------------------------------------
+
         sharedPreferences = getSharedPreferences(getString(R.string.app_name) , MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
@@ -59,10 +64,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+//--------------------------------------------------------------------
+//--------------------------------------------------------------------
+//--------------------------------------------------------------------
 
 
 
 
+//----------------------------------------------------------------------
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
         String currentDate = sdf.format(new Date());
@@ -86,7 +95,45 @@ public class MainActivity extends AppCompatActivity {
 
         tvOpenCount.setText("App Open Count: " + openCount +"\n" + currentDate);
 
+//-------------------------------------------------------------
+//-------------------------------------------------------------
+//-------------------------------------------------------------
 
 
+
+
+        new CountDownTimer(5000, 1000){
+            @Override
+            public void onTick(long millisUntilFinished) {
+                // Update the UI every second (optional)
+            }
+
+            @Override
+            public void onFinish() {
+                // Show the dialog box when the timer finishes
+                showDialog();
+            }
+        }.start();
+
+
+
+    } // on crated bundle end
+
+
+
+    private void showDialog() {
+        // Create and show a dialog box
+        new AlertDialog.Builder(this)
+                .setTitle("Time's up!")
+                .setMessage("5 minutes have passed.")
+                .setPositiveButton("OK", (dialog, which) -> {
+                    dialog.dismiss();
+                })
+                .show();
     }
-}
+
+
+
+
+    }// main Activity end
+
